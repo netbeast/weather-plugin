@@ -1,7 +1,7 @@
 {
   "name": "weather",
-  "version": "VERSION_PLUGIN",
-  "description": "DESCRIPTION_PLUGIN",
+  "version": "0.1",
+  "description": "Netbeast plugin to get info for the weather",
   "main": "index.js",
   "netbeast": {
     "bootOnLoad": true,
@@ -27,17 +27,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "GITHUB_REPOSITORY"
+    "url": "https://github.com/netbeast/weather"
   },
   "keywords": [
     "iot",
     "netbeast",
-    "pluging"
+    "plugin",
+    "weather"
   ],
-  "author": "YOUR_EMAIL",
+  "author": "cayetanorodriguez94@gmail.com",
   "license": "GPL 3",
   "bugs": {
-    "url": "ISSUES_CHANNEL"
+    "url": "https://github.com/netbeast/weather/issues"
   },
-  "homepage": "HOMEPAGE"
+  "homepage": "https://github.com/netbeast/weather"
 }
