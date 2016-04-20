@@ -40,7 +40,7 @@ loadResources(function (err) {
     OUTPUT -> response = [volume: 80, status: play]
 
   */
-  router.get('/weather/:id', function (req, res, next) {
+  router.get('/temperature/:id', function (req, res, next) {
     //  You can find the id stored on req.params.id
 
     //  1. If the device with this id doesn't exist, you will send:
@@ -59,19 +59,17 @@ loadResources(function (err) {
     // on your device, answer with:
     // return res.status(400).send('Values not available on wemo-switch')
   })
+  router.get('/humidity/:id', function (req, res, next) {})
 
   /*
     We are going to use this route to trigger the discovery method (loadResources),
     in order to update the info of the database.
   */
   router.get('/discover', function (req, res, next) {
-    loadResources(function (err) {
+    loadResources(function (err, devices) {
       if (err) return res.status(500).send(err)
+      res.json(devices)
     })
-  // You should response with an object JSON containing all the devices availables of this brand
-  // Using something like :
-  // return res.json(devices)
-  // You can obtain the devices from the 'loadResources' function through the callback
   })
 
   /*
@@ -80,7 +78,7 @@ loadResources(function (err) {
     On this route we should modify specified values of the device current status.
     GET and POST accept (and return) the same paremeters.
   */
-  router.post('/weather/:id', function (req, res, next) {
+  router.post('*', function (req, res, next) {
     //  You can find the id stored on req.params.id
 
     //  We will received an JSON object with the parameters that should be changed,
@@ -99,7 +97,13 @@ loadResources(function (err) {
 
     // If you cannot reach the device, answer with:
     // return res.status(404).send('Device not found')
+    if (err) return res.status(500).send(err)
+    return res.status(501).send('Post Not Implemented')
   })
+
+  if (devices !== undefined && devices.length > 0) {
+    devices.forEach(function (weather, indx) {})
+  }
 })
 
 module.exports = router
