@@ -11,15 +11,14 @@
 
 var express = require('express')
 var router = express.Router()
-// Require the discovery function
+var netbeast = require('netbeast')
 var loadResources = require('./resources')
 
-// If you need to obtain more information from the resources you can use the callback
-// Example. loadResources(function (err, devices, etc) {
-//        ...
-//  })
 loadResources(function (err) {
-  if (err) throw err
+  if (err) {
+    console.trace(new Error(err))
+    netbeast().error(err, 'Something wrong!')
+  }
 
   /*
     You should replace HOOk for the hook that you have configured on resources.js
@@ -41,7 +40,7 @@ loadResources(function (err) {
     OUTPUT -> response = [volume: 80, status: play]
 
   */
-  router.get('/HOOK/:id', function (req, res, next) {
+  router.get('/weather/:id', function (req, res, next) {
     //  You can find the id stored on req.params.id
 
     //  1. If the device with this id doesn't exist, you will send:
@@ -61,8 +60,6 @@ loadResources(function (err) {
     // return res.status(400).send('Values not available on wemo-switch')
   })
 
-
-
   /*
     We are going to use this route to trigger the discovery method (loadResources),
     in order to update the info of the database.
@@ -71,13 +68,11 @@ loadResources(function (err) {
     loadResources(function (err) {
       if (err) return res.status(500).send(err)
     })
-    // You should response with an object JSON containing all the devices availables of this brand
-    // Using something like :
-    // return res.json(devices)
-    // You can obtain the devices from the 'loadResources' function through the callback
+  // You should response with an object JSON containing all the devices availables of this brand
+  // Using something like :
+  // return res.json(devices)
+  // You can obtain the devices from the 'loadResources' function through the callback
   })
-
-
 
   /*
     You should replace HOOk for the hook that you have configured on resources.js
@@ -85,7 +80,7 @@ loadResources(function (err) {
     On this route we should modify specified values of the device current status.
     GET and POST accept (and return) the same paremeters.
   */
-  router.post('/HOOK/:id', function (req, res, next) {
+  router.post('/weather/:id', function (req, res, next) {
     //  You can find the id stored on req.params.id
 
     //  We will received an JSON object with the parameters that should be changed,
@@ -107,5 +102,4 @@ loadResources(function (err) {
   })
 })
 
-// Used to serve the routes
 module.exports = router
