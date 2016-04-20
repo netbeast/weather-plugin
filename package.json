@@ -1,6 +1,6 @@
 {
   "name": "weather",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Netbeast plugin to get info for the weather",
   "main": "index.js",
   "netbeast": {
