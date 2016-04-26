@@ -12,8 +12,10 @@
 var express = require('express')
 var router = express.Router()
 var netbeast = require('netbeast')
+var mqtt = require('mqtt')
 var loadResources = require('./resources')
 
+var client = mqtt.connect('ws://' + process.env.NETBEAST)
 loadResources(function (err) {
   if (err) {
     console.trace(new Error(err))
