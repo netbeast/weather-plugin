@@ -15,8 +15,8 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// Declare where are the routes that the pluging are listening
-app.use(require('../routes'))
+// Declare where are the routes that the plugin are listening
+app.use(require('./routes'))
 
 app.use(express.static(path.resolve(__dirname, '..')))
 
