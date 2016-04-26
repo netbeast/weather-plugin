@@ -3,8 +3,6 @@ var ApiError = require('./api-error')
 
 var weatherAux
 
-helper.getWe
-
 helper.temperature = function (weather, done) {
   weather.getTemperature(function (err, temperature) {
     if (err) return done(err)
