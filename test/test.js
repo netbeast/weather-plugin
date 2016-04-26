@@ -15,21 +15,21 @@
 
 var request = require('request')
 
-var argspost = {power: 1, brightness: 100, color: '#000055'}
+var argsget = {temperature: ''}
 
-request.post({
-  url: 'http://localhost/i/philips-hue/hueLights/1',
-  json: argspost
+request.get({
+  url: 'http://localhost/i/weather/temperature/1',
+  json: argsget
 }, function (err, resp, body) {
   console.log(err)
   console.log(body)
 })
 
-var argsget = {power: '', brightness: ''}
+argsget = {humidity: ''}
 
 request.get({
-  url: 'http://localhost/i/philips-hue/hueLights/1',
-  qs: argsget
+  url: 'http://localhost/i/weather/humidity/1',
+  json: argsget
 }, function (err, resp, body) {
   console.log(err)
   console.log(body)

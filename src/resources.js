@@ -6,13 +6,9 @@
 */
 
 var request = require('request')
+var weather = require('./weather')
 
 const API = 'http://' + process.env.NETBEAST + '/api/resources'
-// Para usar la api de weather underground tenemos que hacer una petición
-// a la dirección WU + KEY + COND + pais/ciudad.json
-const WU = 'http://api.wunderground.com/api/'
-const KEY = 'dcc36127caecf6be'
-const COND = '/conditions/q/'
 
 var devices = []
 
@@ -49,7 +45,7 @@ module.exports = function (callback) {
           location: 'none',
           topic: 'temperature', // lights, bridge, switch, temperature, sounds, etc
           groupname: 'none',
-          hook: '/temperature/id' // HOOK == /Namebrand  Example. /hueLights, /Sonos
+          hook: '/temperature/1' // HOOK == /Namebrand  Example. /hueLights, /Sonos
       // We will use the id to access to the device and modify it.
       // Any value to refer this device (MacAddress, for example) can work as id
       }},
@@ -64,7 +60,7 @@ module.exports = function (callback) {
           location: 'none',
           topic: 'humidity',
           groupname: 'none',
-          hook: '/humidity/id'
+          hook: '/humidity/1'
       }},
         function (err, resp, body) {
           if (err) return callback(err)
