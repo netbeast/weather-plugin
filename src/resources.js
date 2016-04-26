@@ -8,6 +8,11 @@
 var request = require('request')
 
 const API = 'http://' + process.env.NETBEAST + '/api/resources'
+// Para usar la api de weather underground tenemos que hacer una petición
+// a la dirección WU + KEY + COND + pais/ciudad.json
+const WU = 'http://api.wunderground.com/api/'
+const KEY = 'dcc36127caecf6be'
+const COND = '/conditions/q/'
 
 var devices = []
 
