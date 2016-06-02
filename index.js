@@ -12,7 +12,9 @@ cmd
 
 var app = express()
 
-register()
+setTimeout(function () {
+  register()
+}, 10000)
 
 const URL = 'http://api.wunderground.com/api/'
 const KEY = 'dcc36127caecf6be'
@@ -33,30 +35,30 @@ app.get('/:topic', function (req, res) {
     switch (req.params.topic) {
       case 'weather':
         var status = {
-          weather: data.estimated.weather,
-          temperature: { c: data.estimated.tem_c, f: data.estimated.tem_f, k: data.estimated.tem_c + 273.15 },
-          humidity: data.estimated.relative_humidity,
-          wind: data.estimated.wind_kph,
-          precipitation: data.estimated.precip_today_in
+          weather: data.body.current_observation.weather,
+          temperature: { c: data.body.current_observation.temp_c, f: data.body.current_observation.temp_f, k: data.body.current_observation.temp_c + 273.15 },
+          humidity: data.body.current_observation.relative_humidity.split('%')[0],
+          wind: data.body.current_observation.wind_kph,
+          precipitation: data.body.current_observation.precip_today_in
         }
         res.json(status)
         break
       case 'temperature':
-        res.json({ temperature: { c: data.estimated.tem_c, f: data.estimated.tem_f, k: data.estimated.tem_c + 273.15 } })
+        res.json({ temperature: { c: data.body.current_observation.temp_c, f: data.body.current_observation.temp_f, k: data.body.current_observation.temp_c + 273.15 } })
         break
       case 'humidity':
-        res.json({ humidity: data.estimated.relative_humidity })
+        res.json({ humidity: data.body.current_observation.relative_humidity.split('%')[0] })
         break
       case 'wind':
-        res.json({ wind: data.estimated.wind_kph })
+        res.json({ wind: data.body.current_observation.wind_kph })
         break
       case 'precipitation':
-        res.json({ precipitation: data.estimated.precip_today_in })
+        res.json({ precipitation: data.body.current_observation.precip_today_in })
         break
       default:
         break
     }
-  }).catch(function (err) { res.status(403).send(err) })
+  }).catch(function (err) { console.trace(err); res.status(403).send(err) })
 })
 
 app.post('*', function (req, res) {
